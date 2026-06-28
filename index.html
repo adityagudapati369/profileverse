@@ -821,8 +821,11 @@
         <span>After sending payment, contact us with payment proof &amp; your profile link. Your sponsored slot will be activated within 24 hours.</span>
       </div>
       <div style="margin-top:14px;">
-        <p style="font-size:0.8rem;font-weight:700;color:var(--ink-soft);margin-bottom:8px;"><i class="fas fa-envelope" style="color:var(--ig)"></i> Contact us</p>
-        <a href="mailto:sponsor@profileverse.co.in" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(95deg,var(--ig),var(--ig-deep));color:white;text-decoration:none;padding:9px 18px;border-radius:40px;font-weight:700;font-size:0.82rem;">
+        <p style="font-size:0.8rem;font-weight:700;color:var(--ink-soft);margin-bottom:8px;"><i class="fas fa-headset" style="color:var(--ig)"></i> Contact us on WhatsApp</p>
+        <a href="https://wa.me/919391783528" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(95deg,#25D366,#128C7E);color:white;text-decoration:none;padding:9px 18px;border-radius:40px;font-weight:700;font-size:0.82rem;width:fit-content;">
+          <i class="fab fa-whatsapp"></i> +91 9391783528
+        </a>
+        <a href="mailto:sponsor@profileverse.co.in" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(95deg,var(--ig),var(--ig-deep));color:white;text-decoration:none;padding:9px 18px;border-radius:40px;font-weight:700;font-size:0.82rem;margin-top:8px;width:fit-content;">
           <i class="fas fa-envelope"></i> sponsor@profileverse.co.in
         </a>
       </div>
@@ -835,8 +838,8 @@
 ════════════════════════════════════════════════════════ -->
 <script>
 // ── CONFIG — replace with your Supabase project details ──
-var SUPABASE_URL      = "https://YOUR_SUPABASE_URL.supabase.co";
-var SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+var SUPABASE_URL      = "https://wolmtdadtvbbqhxvqjjg.supabase.co";
+var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndvbG10ZGFkdHZiYnFoeHZxampnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI2Mzg4NTYsImV4cCI6MjA5ODIxNDg1Nn0.BKv-R_l0QSRQyKfw_9GfkvKs8Ocafl_4vne6MoXlOgc";
 
 // ── State ──
 var supabaseClient    = null;
@@ -1146,11 +1149,20 @@ function addTag() {
 }
 function removeTag(i) { currentTags.splice(i,1); renderTagChips(); }
 
-// ── Submit cooldown ──
-var COOLDOWN_MS = 5 * 60 * 1000;
+// ── Submit cooldown — 1 hour per session ──
+var COOLDOWN_MS = 60 * 60 * 1000; // 1 hour
 function recordSubmitTime() { try { sessionStorage.setItem("pv_last_submit", Date.now()); } catch(e){} }
 function isCoolingDown() {
-  try { var t = parseInt(sessionStorage.getItem("pv_last_submit")||"0",10); return t && (Date.now()-t < COOLDOWN_MS); } catch(e){ return false; }
+  try {
+    var t = parseInt(sessionStorage.getItem("pv_last_submit")||"0",10);
+    if (!t) return false;
+    var remaining = Math.ceil((COOLDOWN_MS - (Date.now()-t)) / 60000);
+    if (Date.now()-t < COOLDOWN_MS) {
+      window._cooldownRemaining = remaining;
+      return true;
+    }
+    return false;
+  } catch(e){ return false; }
 }
 
 // ── Follow Gate ──
@@ -1219,9 +1231,24 @@ function copyUsdtAddress() {
 
 // ── Submit Profile ──
 async function submitProfile() {
-  if (isCoolingDown()) { showErr("⏳ Please wait a few minutes before submitting again."); return; }
-  var honeypot = document.getElementById("website_url"); if (honeypot && honeypot.value) return;
 
+  // ---- Inner error helper (defined first so all checks below can use it) ----
+  function showErr(msg) {
+    var e = document.getElementById("submitFormError");
+    if (e) { e.textContent = msg; e.style.display = "block"; e.scrollIntoView({ behavior:"smooth", block:"center" }); }
+  }
+
+  // ---- 1. Client-side cooldown (1 hour) ----
+  if (isCoolingDown()) {
+    showErr("⏳ You can only submit once per hour. Please wait " + (window._cooldownRemaining || "") + " more minute(s).");
+    return;
+  }
+
+  // ---- 2. Honeypot bot trap ----
+  var honeypot = document.getElementById("website_url");
+  if (honeypot && honeypot.value) return;
+
+  // ---- 3. Read all form fields ----
   var name     = (document.getElementById("modalName")           || {}).value || "";
   var link     = (document.getElementById("modalLink")           || {}).value || "";
   var logo_url = (document.getElementById("modalLogoUrl")        || {}).value || "";
@@ -1233,65 +1260,131 @@ async function submitProfile() {
   var captchaInp = document.getElementById("captchaAnswer");
   var captchaErr = document.getElementById("captchaError");
 
-  if (country === "Other") { country = (document.getElementById("customCountryInput")||{}).value.trim() || "Other"; }
+  if (country  === "Other") { country  = (document.getElementById("customCountryInput") ||{}).value.trim() || "Other"; }
   if (language === "Other") { language = (document.getElementById("customLanguageInput")||{}).value.trim() || "Other"; }
 
-  function showErr(msg) {
-    var e = document.getElementById("submitFormError");
-    if (e) { e.textContent = msg; e.style.display = "block"; }
-  }
+  // ---- 4. Required field checks ----
+  if (!name.trim())  { showErr("⚠️ Profile name is required."); return; }
+  if (!link.trim())  { showErr("⚠️ Profile URL is required.");  return; }
 
-  if (!name.trim()) { showErr("⚠️ Profile name is required."); return; }
-  if (!link.trim()) { showErr("⚠️ Profile URL is required."); return; }
-
-  // Validate URL matches selected platform
-  var validPrefixes = {
-    instagram: ["instagram.com/","instagr.am/"],
-    facebook:  ["facebook.com/","fb.com/","fb.me/"],
-    twitter:   ["twitter.com/","x.com/"],
-    youtube:   ["youtube.com/","youtu.be/"]
+  // ---- 5. Strict platform URL validation ----
+  // Only the exact platform the user selected is accepted. Any other domain = error.
+  var PLATFORM_RULES = {
+    instagram: {
+      allowed: ["instagram.com/", "instagr.am/"],
+      example: "https://instagram.com/yourhandle",
+      label:   "Instagram"
+    },
+    facebook: {
+      allowed: ["facebook.com/", "fb.com/", "fb.me/", "m.facebook.com/"],
+      example: "https://facebook.com/yourpage",
+      label:   "Facebook"
+    },
+    twitter: {
+      allowed: ["twitter.com/", "x.com/"],
+      example: "https://x.com/yourhandle",
+      label:   "Twitter / X"
+    },
+    youtube: {
+      allowed: ["youtube.com/", "youtu.be/", "youtube.com/@"],
+      example: "https://youtube.com/@yourchannel",
+      label:   "YouTube"
+    }
   };
-  var prefixes = validPrefixes[platform] || [];
-  var linkLow = link.toLowerCase();
-  if (prefixes.length && !prefixes.some(function(p){ return linkLow.includes(p); })) {
-    showErr("⚠️ The URL doesn't look like a valid " + platform + " link."); return;
+
+  var rule    = PLATFORM_RULES[platform];
+  var linkLow = link.trim().toLowerCase();
+
+  // Must start with http
+  if (!linkLow.startsWith("http://") && !linkLow.startsWith("https://")) {
+    showErr("⚠️ URL must start with https:// — e.g. " + (rule ? rule.example : "https://..."));
+    return;
   }
 
-  // CAPTCHA check
+  // Must match chosen platform exactly
+  if (rule && !rule.allowed.some(function(prefix){ return linkLow.includes(prefix); })) {
+    showErr("❌ This doesn't look like a " + rule.label + " link. Please paste a valid " + rule.label + " URL.\n Example: " + rule.example);
+    return;
+  }
+
+  // Extra: reject if link contains a DIFFERENT platform's domain
+  var ALL_DOMAINS = ["instagram.com","facebook.com","fb.com","twitter.com","x.com","youtube.com","youtu.be","tiktok.com","snapchat.com","linkedin.com","t.me","telegram","whatsapp.com","chat.whatsapp"];
+  var isWrongPlatform = ALL_DOMAINS.some(function(domain) {
+    // if link contains a domain that is NOT in the allowed list for this platform
+    if (linkLow.includes(domain)) {
+      return !(rule && rule.allowed.some(function(prefix){ return prefix.includes(domain); }));
+    }
+    return false;
+  });
+  if (isWrongPlatform) {
+    showErr("❌ Wrong platform link. You selected " + (rule ? rule.label : platform) + " but pasted a different platform's URL.");
+    return;
+  }
+
+  // ---- 6. Logo URL basic check (if provided) ----
+  if (logo_url.trim() && !logo_url.trim().toLowerCase().startsWith("http")) {
+    showErr("⚠️ Logo URL must start with https://");
+    return;
+  }
+
+  // ---- 7. Math CAPTCHA ----
   var userAnswer = parseInt((captchaInp||{}).value || "", 10);
   if (isNaN(userAnswer) || userAnswer !== captchaAnswer) {
     if (captchaErr) captchaErr.style.display = "block";
-    generateCaptcha(); return;
+    generateCaptcha();
+    return;
   }
   if (captchaErr) captchaErr.style.display = "none";
 
+  // ---- 8. Disable button, show spinner ----
   var btn = document.getElementById("submitProfileFinalBtn");
   var originalLabel = btn ? btn.innerHTML : "";
   if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding…'; }
 
+  // ---- 9. Insert into Supabase ----
   try {
     var result = await supabaseClient.from("profiles").insert([{
-      name:      name.trim(),
-      link:      link.trim(),
-      logo_url:  logo_url.trim() || null,
+      name:        name.trim(),
+      link:        link.trim(),
+      logo_url:    logo_url.trim() || null,
       description: desc.trim(),
-      platform:  platform,
-      category:  category,
-      country:   country,
-      language:  language,
-      tags:      currentTags.slice()
-      // is_approved and is_active default to false in DB — moderated before going live
+      platform:    platform,
+      category:    category,
+      country:     country,
+      language:    language,
+      tags:        currentTags.slice()
+      // is_approved / is_active set by DB trigger — never trust client
     }]);
+
     if (result.error) throw result.error;
+
+    // ---- 10. Record cooldown, clear form, show success ----
     recordSubmitTime();
-    ["modalName","modalLink","modalLogoUrl","modalDesc"].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=""; });
-    currentTags = []; renderTagChips(); generateCaptcha();
-    showSubmitSuccess(); loadProfiles();
+    ["modalName","modalLink","modalLogoUrl","modalDesc"].forEach(function(id){
+      var el = document.getElementById(id); if (el) el.value = "";
+    });
+    currentTags = [];
+    renderTagChips();
+    generateCaptcha();
+    showSubmitSuccess();
+    loadProfiles();
+
   } catch(e) {
     console.error("submitProfile:", e);
-    if (e.code === "23505") { showErr("⚠️ This profile link is already in the directory."); }
-    else { showErr("Error adding profile: " + (e.message || "please try again.")); }
+    var msg = e.message || "";
+    if (e.code === "23505" || msg.includes("duplicate") || msg.includes("unique")) {
+      showErr("⚠️ This profile link is already in our directory.");
+    } else if (msg.includes("Rate limit")) {
+      showErr("⏳ Too many submissions. Please wait 1 hour before trying again.");
+    } else if (msg.includes("Invalid platform")) {
+      showErr("❌ Invalid platform selected. Please refresh and try again.");
+    } else if (msg.includes("Invalid URL")) {
+      showErr("❌ Invalid URL format. Please check your link.");
+    } else {
+      showErr("❌ Error: " + (msg || "Something went wrong. Please try again."));
+    }
   }
+
   if (btn) { btn.disabled = false; btn.innerHTML = originalLabel; }
 }
 
