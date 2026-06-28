@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+    font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+    img-src 'self' data: https:;
+    connect-src 'self' https://YOUR_SUPABASE_URL.supabase.co;
+    frame-ancestors 'none';
+    base-uri 'self';
+    form-action 'self';
+  ">
+
+  <!-- ═══ PRIMARY SEO ═══ -->
+  <title>ProfileVerse — Instagram, Facebook, Twitter & YouTube Profiles Directory</title>
+  <meta name="description" content="Discover and follow the best Instagram, Facebook, Twitter/X and YouTube profiles in 2026. Browse 1000+ verified creators on ProfileVerse — filter by category, country and platform, all free.">
+  <meta name="keywords" content="ProfileVerse, instagram profiles, facebook pages, twitter accounts, youtube channels, social media directory, follow creators, influencers, content creators 2026">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="author" content="ProfileVerse">
+  <meta name="theme-color" content="#E1306C">
+  <meta name="language" content="English">
+  <meta name="revisit-after" content="3 days">
+  <link rel="canonical" href="https://profileverse.co.in/">
+
+  <!-- ═══ OPEN GRAPH ═══ -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ProfileVerse">
+  <meta property="og:title" content="ProfileVerse — Find & Follow Top Social Media Creators">
+  <meta property="og:description" content="Browse 1000+ Instagram, Facebook, Twitter & YouTube profiles. Filter by platform, niche & country. Follow free — no sign-up needed.">
+  <meta property="og:url" content="https://profileverse.co.in/">
+  <meta property="og:image" content="https://profileverse.co.in/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+
+  <!-- ═══ TWITTER CARD ═══ -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ProfileVerse — Find & Follow Top Social Media Profiles">
+  <meta name="twitter:description" content="Browse top Instagram, YouTube, Twitter & Facebook creators. Free directory, no sign-up.">
+  <meta name="twitter:image" content="https://profileverse.co.in/og-image.png">
+
+  <!-- ═══ SCHEMA ═══ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "ProfileVerse",
+    "url": "https://profileverse.co.in/",
+    "description": "Discover and follow the best Instagram, Facebook, Twitter/X and YouTube profiles worldwide.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": { "@type": "EntryPoint", "urlTemplate": "https://profileverse.co.in/?q={search_term_string}" },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- ═══ PERF ═══ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
+  <!-- ═══ FAVICON ═══ -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.50.0/dist/umd/supabase.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --ig: #E1306C; --ig-deep: #C13584;
+      --fb: #1877F2; --fb-deep: #0d5fb3;
+      --tw: #1DA1F2; --tw-deep: #0c85d0;
+      --yt: #FF0000; --yt-deep: #cc0000;
+      --accent: #E1306C;
+      --ink: #0a0c15; --ink-soft: #2d3a4e; --muted: #5b6e8c;
+      --line: #e2edf7; --surface: #ffffff; --bg-tint: #fff9fb;
+      --radius-xl: 40px; --radius-lg: 28px; --radius-md: 18px; --radius-sm: 12px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+    }
+    body {
+      font-family: 'Roboto Slab', serif;
+      background: radial-gradient(circle at 12% 8%, #fff0f5, transparent 38%),
+                  radial-gradient(circle at 88% 18%, #f0f4ff, transparent 42%), var(--bg-tint);
+      background-attachment: fixed;
+      color: var(--ink); line-height: 1.5; scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::-webkit-scrollbar { width: 9px; } ::-webkit-scrollbar-track { background: #e9edf2; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(145deg, var(--ig), var(--fb)); border-radius: 10px; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 28px; }
+    a, button, input, select, textarea { font-family: inherit; }
+    button, a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+    input, select, textarea { -webkit-text-size-adjust: 100%; }
+    .modal { padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+    footer { padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px)); }
+
+    /* ── Header ── */
+    header {
+      background: rgba(255,255,255,0.88); backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      box-shadow: 0 1px 0 rgba(15,23,42,0.04); border-bottom: 1px solid rgba(225,48,108,0.18);
+      position: sticky; top: 0; z-index: 50; transition: box-shadow 0.3s var(--ease);
+    }
+    header.scrolled { box-shadow: 0 10px 30px -14px rgba(15,23,42,0.18); }
+    .navbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; gap: 18px; }
+    .logo h2 {
+      font-size: 1.85rem; font-weight: 800;
+      background: linear-gradient(125deg, var(--ig) 0%, var(--ig-deep) 25%, var(--fb) 50%, var(--tw) 75%, var(--yt) 100%);
+      background-clip: text; -webkit-background-clip: text; color: transparent;
+      letter-spacing: -0.4px; display: inline-flex; align-items: baseline; gap: 6px;
+    }
+    .logo-tagline { font-size: 0.7rem; font-weight: 600; color: var(--muted); margin-left: 4px; white-space: nowrap; }
+    @media (max-width: 600px) { .logo-tagline { display: none; } }
+    .btn-glow {
+      border: none;
+      background: linear-gradient(105deg, var(--ig) 0%, var(--ig-deep) 40%, var(--fb) 100%);
+      background-size: 180% 180%; background-position: 0% 50%;
+      padding: 12px 28px; border-radius: 60px; font-weight: 700; color: white; cursor: pointer;
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), background-position 0.5s var(--ease);
+      display: inline-flex; align-items: center; gap: 9px;
+      box-shadow: 0 6px 16px -4px rgba(225,48,108,0.4); font-size: 0.92rem;
+    }
+    .btn-glow:hover { transform: translateY(-2px); box-shadow: 0 16px 28px -10px rgba(24,119,242,0.45); background-position: 100% 50%; }
+    .btn-glow:active { transform: translateY(0); }
+    :focus-visible { outline: 2px solid var(--ig-deep); outline-offset: 3px; border-radius: 4px; }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative; background: linear-gradient(135deg, #fff 0%, #fff0f5 50%, #f0f4ff 100%);
+      border-radius: var(--radius-xl); margin: 36px 0 22px; padding: 56px 32px;
+      text-align: center; border: 1px solid rgba(225,48,108,0.16);
+      box-shadow: 0 20px 50px -30px rgba(15,23,42,0.25); overflow: hidden;
+    }
+    .hero::before, .hero::after {
+      content: ''; position: absolute; border-radius: 50%; filter: blur(40px); opacity: 0.35; pointer-events: none;
+    }
+    .hero::before { width: 220px; height: 220px; background: var(--ig); top: -90px; left: -60px; animation: float1 9s ease-in-out infinite; }
+    .hero::after  { width: 260px; height: 260px; background: var(--fb); bottom: -110px; right: -70px; animation: float2 11s ease-in-out infinite; }
+    @keyframes float1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(20px,25px); } }
+    @keyframes float2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-25px,-15px); } }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(225,48,108,0.1); color: var(--ig-deep);
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 40px; margin-bottom: 16px; animation: fadeUp 0.6s var(--ease) both;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800;
+      background: linear-gradient(to right, #0f172a, var(--ig), var(--fb));
+      background-clip: text; -webkit-background-clip: text; color: transparent;
+      animation: fadeUp 0.6s 0.08s var(--ease) both;
+    }
+    .hero p { margin-top: 12px; color: var(--muted); font-size: 1.02rem; animation: fadeUp 0.6s 0.16s var(--ease) both; }
+    .platform-icons-hero { display: flex; justify-content: center; gap: 18px; margin-top: 22px; animation: fadeUp 0.6s 0.24s var(--ease) both; }
+    .platform-icons-hero i { font-size: 2rem; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── Trust Stats ── */
+    .trust-stats-bar { display:flex; gap:14px; flex-wrap:wrap; margin:0 0 22px; }
+    .trust-stat { flex:1; min-width:140px; background:linear-gradient(145deg,#fff,#fff0f5); border:1px solid var(--line); border-radius:var(--radius-md); padding:14px 18px; text-align:center; }
+    .trust-stat strong { display:block; font-size:1.4rem; font-weight:800; background:linear-gradient(120deg,var(--ig),var(--fb)); background-clip:text; -webkit-background-clip:text; color:transparent; }
+    .trust-stat span { font-size:0.72rem; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:0.4px; }
+
+    /* ── Filters ── */
+    .filter-panel {
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); border-radius: var(--radius-lg);
+      margin: 0 0 28px; padding: 22px 28px;
+      box-shadow: 0 16px 36px -18px rgba(15,23,42,0.12); border: 1px solid rgba(225,48,108,0.16);
+    }
+    .filter-flex { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; }
+    .filter-item { flex: 1 1 150px; min-width: 130px; }
+    .filter-item label { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #1e2f4f; display: block; margin-bottom: 6px; }
+    .filter-item select, .filter-item input {
+      width: 100%; padding: 10px 14px; border-radius: 48px;
+      border: 1.5px solid #e0e8f2; background: white; font-size: 0.85rem;
+      transition: border-color 0.2s, box-shadow 0.2s; font-weight: 500; color: var(--ink);
+    }
+    .filter-item select:focus, .filter-item input:focus { outline: none; border-color: var(--ig); box-shadow: 0 0 0 4px rgba(225,48,108,0.12); }
+    .action-btns { display: flex; gap: 10px; flex-wrap: nowrap; }
+    .btn-primary-solid {
+      background: #0f172a; border: none; padding: 10px 26px; border-radius: 60px;
+      color: white; font-weight: 600; cursor: pointer; transition: transform 0.2s, background 0.2s;
+      display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; white-space: nowrap;
+    }
+    .btn-primary-solid:hover { background: #1f2a48; transform: translateY(-1px); }
+    .btn-primary-solid:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+    .btn-outline-light {
+      background: transparent; border: 1.5px solid #c8dcf5; padding: 9px 22px;
+      border-radius: 60px; font-weight: 600; cursor: pointer; transition: 0.2s;
+      font-size: 0.85rem; white-space: nowrap; color: var(--ink-soft);
+    }
+    .btn-outline-light:hover { background: #f1f7ff; border-color: var(--ig); }
+
+    /* ── Grid ── */
+    .stats-chips { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 26px; flex-wrap: wrap; gap: 12px; }
+    .stats-chips h3 { font-size: 1.15rem; font-weight: 800; }
+    .result-count { background: linear-gradient(145deg,#fff0f5,#fff); padding: 7px 22px; border-radius: 60px; font-weight: 600; font-size: 0.84rem; border: 1px solid #f5c6d8; }
+    .profiles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px,1fr)); gap: 26px; margin: 0 0 60px; }
+
+    /* ── Profile Card ── */
+    .profile-card {
+      background: var(--surface); border-radius: var(--radius-lg); overflow: hidden;
+      box-shadow: 0 10px 26px -16px rgba(15,23,42,0.14); border: 1px solid var(--line);
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+      opacity: 0; transform: translateY(16px); animation: cardIn 0.5s var(--ease) forwards;
+    }
+    @keyframes cardIn { to { opacity: 1; transform: translateY(0); } }
+    .profile-card:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -20px rgba(15,23,42,0.22); border-color: rgba(225,48,108,0.3); }
+
+    .card-header { display: flex; align-items: flex-start; gap: 14px; padding: 20px 20px 12px; position: relative; }
+    .platform-badge {
+      width: 62px; height: 62px; border-radius: 18px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(145deg, #fff0f5, #f0f4ff);
+      border: 1.5px solid var(--line);
+    }
+    .profile-title h4 { font-size: 1rem; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
+    .profile-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+    .badge-category, .badge-type {
+      font-size: 0.65rem; font-weight: 700; padding: 3px 10px;
+      border-radius: 30px; background: #f1f4f8; color: #5b6e8c;
+    }
+    .badge-new { background:#fff3cd; color:#8a6500; font-size:0.65rem; font-weight:800; padding:3px 9px; border-radius:30px; }
+    .badge-popular { background:#ffe3e3; color:#c62828; font-size:0.65rem; font-weight:800; padding:3px 9px; border-radius:30px; }
+
+    .card-body { padding: 0 20px 18px; }
+    .description { font-size: 0.84rem; color: var(--ink-soft); line-height: 1.55; margin-bottom: 10px; }
+    .tags-container { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .tag-pill { background: #f4f6f9; color: #5b6e8c; font-size: 0.68rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+    .follow-counter { font-size:0.74rem; color:var(--muted); display:flex; align-items:center; gap:5px; margin:2px 0 12px; }
+
+    .card-actions { display: flex; gap: 10px; align-items: center; }
+    .follow-link-btn {
+      flex: 1; padding: 10px 18px; border-radius: 50px; font-weight: 700; font-size: 0.82rem;
+      color: white; text-decoration: none; text-align: center;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+    .follow-link-btn.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); box-shadow: 0 6px 16px -6px rgba(225,48,108,0.5); }
+    .follow-link-btn.facebook  { background: linear-gradient(135deg, var(--fb), var(--fb-deep)); box-shadow: 0 6px 16px -6px rgba(24,119,242,0.5); }
+    .follow-link-btn.twitter   { background: linear-gradient(135deg, var(--tw), var(--tw-deep)); box-shadow: 0 6px 16px -6px rgba(29,161,242,0.5); }
+    .follow-link-btn.youtube   { background: linear-gradient(135deg, var(--yt), var(--yt-deep)); box-shadow: 0 6px 16px -6px rgba(255,0,0,0.4); }
+    .follow-link-btn:hover { transform: translateY(-2px); }
+    .copy-icon-btn {
+      background: #f4f6f9; border: none; width: 40px; height: 40px; border-radius: 12px;
+      cursor: pointer; color: var(--muted); transition: 0.2s; font-size: 0.9rem;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .copy-icon-btn:hover { background: #e8edf5; color: var(--ink); }
+    .copy-icon-btn.copied { background: #dcfce7; color: #166534; }
+
+    /* ── Sponsored ── */
+    .sponsored-section { margin-bottom: 32px; }
+    .sponsored-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+    .sponsored-label { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #d97706; display: flex; align-items: center; gap: 6px; }
+    .sponsored-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px,1fr)); gap: 20px; }
+    .sponsored-card {
+      border: 2px solid rgba(245,158,11,0.5) !important;
+      box-shadow: 0 10px 28px -10px rgba(245,158,11,0.4) !important;
+      background: linear-gradient(145deg, #fffbeb, #fff) !important;
+    }
+    .sp-badge {
+      position: absolute; top: 12px; right: 14px;
+      background: linear-gradient(115deg, #f59e0b, #d97706);
+      color: white; font-size: 0.6rem; font-weight: 800;
+      padding: 3px 10px; border-radius: 30px; letter-spacing: 0.5px; text-transform: uppercase;
+    }
+
+    /* ── Sponsored Button ── */
+    .btn-get-sponsored {
+      background: linear-gradient(105deg, #ff7e05, #ffb347, #ff7e05);
+      background-size: 200% 200%;
+      animation: sponsoredPulse 2.5s ease-in-out infinite;
+      border: none; padding: 10px 22px; border-radius: 60px;
+      font-weight: 800; color: white; cursor: pointer;
+      font-size: 0.88rem; display: inline-flex; align-items: center; gap: 8px;
+      box-shadow: 0 6px 20px -6px rgba(255,126,5,0.55);
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+      position: relative; overflow: hidden;
+    }
+    .btn-get-sponsored::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%);
+      transform: translateX(-100%); animation: shimmer 2.5s infinite;
+    }
+    @keyframes shimmer { 0% { transform: translateX(-100%); } 60% { transform: translateX(100%); } 100% { transform: translateX(100%); } }
+    @keyframes sponsoredPulse { 0%,100% { background-position:0% 50%; } 50% { background-position:100% 50%; } }
+    .btn-get-sponsored:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 14px 32px -8px rgba(255,126,5,0.65); }
+
+    /* ── Empty / Loading ── */
+    .empty-state { text-align:center; padding:60px 20px; color:var(--muted); }
+    .empty-state i { display:block; margin-bottom:14px; color:#d1d9e6; }
+    .empty-state p { font-size:0.92rem; font-weight:600; }
+    .loading-spinner { text-align:center; padding:60px 20px; color:var(--muted); font-size:0.95rem; display:flex; align-items:center; justify-content:center; gap:10px; }
+
+    /* ── Toast ── */
+    .toast-notify {
+      position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(20px);
+      background:#0f172ae6; color:white; padding:12px 24px; border-radius:50px;
+      font-size:0.85rem; font-weight:600; z-index:9999; opacity:0; pointer-events:none;
+      transition: opacity 0.3s, transform 0.3s; white-space:nowrap;
+    }
+    .toast-notify.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+    /* ── Modal ── */
+    .modal {
+      visibility: hidden; opacity: 0; pointer-events: none;
+      position: fixed; inset: 0; background: rgba(10,14,26,0.72);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      padding: 16px; transition: opacity 0.25s var(--ease), visibility 0.25s var(--ease);
+    }
+    .modal.open { visibility: visible; opacity: 1; pointer-events: auto; }
+    .modal-card {
+      background: white; max-width: 540px; width: 100%; border-radius: var(--radius-xl);
+      padding: 36px 32px; max-height: 92vh; overflow-y: auto; position: relative;
+      transform: scale(0.94) translateY(8px); transition: transform 0.3s var(--ease);
+      box-shadow: 0 32px 64px -20px rgba(15,23,42,0.35);
+    }
+    .modal.open .modal-card { transform: scale(1) translateY(0); }
+    .close-modal-icon {
+      position: absolute; top: 18px; right: 20px; background: none; border: none;
+      font-size: 1.3rem; cursor: pointer; color: #94a3b8; width: 36px; height: 36px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.2s;
+    }
+    .close-modal-icon:hover { color: #0f172a; background: #f1f5f9; }
+    .modal-card h3 { font-size: 1.35rem; font-weight: 800; margin-bottom: 6px;
+      background: linear-gradient(125deg, var(--ig), var(--fb));
+      background-clip: text; -webkit-background-clip: text; color: transparent;
+    }
+    .modal-subtitle { font-size: 0.82rem; color: var(--muted); margin-bottom: 22px; }
+    .modal-card label { display: block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.4px; color: var(--ink-soft); margin: 14px 0 6px; }
+    .modal-card input, .modal-card select, .modal-card textarea {
+      width: 100%; padding: 11px 16px; border-radius: var(--radius-sm);
+      border: 1.5px solid #e0e8f2; background: #fafbfc; font-size: 0.88rem;
+      transition: border-color 0.2s, box-shadow 0.2s; color: var(--ink); font-weight: 500;
+    }
+    .modal-card input:focus, .modal-card select:focus, .modal-card textarea:focus {
+      outline: none; border-color: var(--ig); box-shadow: 0 0 0 4px rgba(225,48,108,0.1); background: white;
+    }
+    .modal-card textarea { resize: vertical; }
+    .form-hint { font-size: 0.71rem; color: var(--muted); margin-top: 4px; }
+    .form-error { color: #b91c1c; font-size: 0.8rem; font-weight: 600; padding: 10px 14px; background: #fef2f2; border-radius: 10px; margin-top: 10px; display: none; }
+    .modal-actions { display: flex; gap: 12px; margin-top: 20px; }
+    .tags-input-wrapper { border: 1.5px solid #e0e8f2; border-radius: var(--radius-sm); padding: 10px 14px; background: #fafbfc; }
+    .tags-input { border: none !important; background: transparent !important; padding: 4px 0 !important; font-size: 0.85rem; width: 100%; }
+    .tags-input:focus { box-shadow: none !important; }
+    .tag-chip { background: linear-gradient(135deg,#fff0f5,#f0f4ff); border: 1px solid #f5c6d8; border-radius: 20px; padding: 3px 10px 3px 12px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; color: var(--ig-deep); }
+    .tag-chip button { background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 0.7rem; padding: 0; display: flex; }
+    .tag-chip button:hover { color: #b91c1c; }
+
+    /* ── Submit Success ── */
+    .submit-success { display: none; text-align: center; padding: 10px 0; }
+    .submit-success.show { display: block; }
+    .check-circle { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg,var(--ig),var(--fb)); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; font-size: 2rem; color: white; }
+    .submit-success h4 { font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; }
+    .submit-success p { color: var(--muted); font-size: 0.88rem; }
+
+    /* ── Math CAPTCHA ── */
+    .math-captcha-wrap { margin:14px 0; background:linear-gradient(135deg,#fff0f5,#f0f4ff); border:1.5px solid rgba(225,48,108,0.25); border-radius:var(--radius-sm); padding:14px 16px; }
+    .math-captcha-label { font-size:0.8rem; font-weight:700; color:var(--ink-soft); margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+    .math-captcha-label i { color: var(--ig); }
+    .math-captcha-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .math-captcha-question { font-size:1.1rem; font-weight:800; color:var(--ink); background:white; border:1.5px solid #f5c6d8; border-radius:8px; padding:6px 14px; min-width:120px; text-align:center; letter-spacing:1px; }
+    .math-captcha-input { width:90px !important; padding:8px 12px !important; border-radius:8px !important; font-size:1rem !important; font-weight:700 !important; text-align:center; border:1.5px solid #f5c6d8 !important; }
+    .math-captcha-input:focus { border-color:var(--ig) !important; box-shadow:0 0 0 4px rgba(225,48,108,0.1) !important; }
+    .math-captcha-refresh { background:none; border:none; cursor:pointer; color:var(--ig); font-size:1rem; padding:4px 8px; border-radius:6px; transition:background 0.2s; }
+    .math-captcha-refresh:hover { background:rgba(225,48,108,0.1); }
+    .math-captcha-error { color:#b91c1c; font-size:0.75rem; margin-top:5px; font-weight:600; display:none; }
+
+    /* ── Advertise Modal ── */
+    .advertise-modal {
+      visibility: hidden; opacity: 0; pointer-events: none;
+      position: fixed; inset: 0; background: rgba(10,14,26,0.72);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1200; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      padding: 16px; transition: opacity 0.25s var(--ease), visibility 0.25s var(--ease);
+    }
+    .advertise-modal.open { visibility: visible; opacity: 1; pointer-events: auto; }
+    .advertise-card {
+      background: white; max-width: 600px; width: 100%; border-radius: var(--radius-xl); padding: 36px 32px;
+      max-height: 92vh; overflow-y: auto; transform: scale(0.94) translateY(8px);
+      transition: transform 0.3s var(--ease); box-shadow: 0 32px 64px -20px rgba(15,23,42,0.35); position: relative;
+    }
+    .advertise-modal.open .advertise-card { transform: scale(1) translateY(0); }
+    .advertise-card h3 { font-size: 1.5rem; font-weight: 800; text-align: center; margin-bottom: 6px; background: linear-gradient(135deg,#f59e0b,#ef4444); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .advertise-subtitle { text-align: center; color: var(--muted); font-size: 0.85rem; margin-bottom: 24px; }
+    .pricing-plans { display: flex; flex-direction: column; gap: 14px; margin-bottom: 26px; }
+    .pricing-plan { border: 2px solid #e2edf7; border-radius: var(--radius-md); padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 14px; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; cursor: default; position: relative; flex-wrap: wrap; }
+    .pricing-plan:hover { border-color: #f59e0b; box-shadow: 0 8px 20px -8px rgba(245,158,11,0.25); transform: translateY(-2px); }
+    .pricing-plan.popular { border-color: #f59e0b; background: linear-gradient(135deg,#fffbeb,#fff9f0); }
+    .popular-tag { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: linear-gradient(115deg,#f59e0b,#ef4444); color: white; font-size: 0.62rem; font-weight: 800; padding: 3px 14px; border-radius: 30px; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; }
+    .plan-info .plan-name { font-weight: 800; font-size: 1rem; color: var(--ink); }
+    .plan-info .plan-desc { font-size: 0.75rem; color: var(--muted); margin-top: 3px; }
+    .plan-price { text-align: right; }
+    .plan-price .price-main { font-size: 1.5rem; font-weight: 800; color: #f59e0b; }
+    .plan-price .price-sub { font-size: 0.7rem; color: var(--muted); }
+    .plan-price .price-save { background: #dcfce7; color: #166534; font-size: 0.65rem; font-weight: 800; padding: 2px 8px; border-radius: 20px; display: inline-block; margin-top: 4px; }
+    .payment-section h4 { font-weight: 800; font-size: 0.9rem; margin-bottom: 12px; color: var(--ink-soft); }
+    .usdt-address-box { background: #f8fafc; border: 1.5px solid #e2edf7; border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 16px; }
+    .chain-tag { display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 0.65rem; font-weight: 800; padding: 2px 10px; border-radius: 20px; margin-bottom: 8px; }
+    .usdt-address-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .usdt-address-text { font-family: 'Courier New', monospace; font-size: 0.78rem; color: var(--ink); word-break: break-all; flex: 1; font-weight: 600; }
+    .btn-copy-addr { background: #0f172a; color: white; border: none; padding: 7px 16px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; transition: background 0.2s; }
+    .btn-copy-addr:hover { background: #1f2a48; }
+    .btn-copy-addr.copied { background: #25D366; }
+    .advertise-note { background: #fef3c7; border: 1px solid #fde68a; border-radius: var(--radius-sm); padding: 12px 16px; font-size: 0.78rem; color: #92400e; margin-top: 18px; display: flex; align-items: flex-start; gap: 8px; }
+    .close-advertise { position: absolute; top: 18px; right: 20px; background: none; border: none; font-size: 1.3rem; cursor: pointer; color: #94a3b8; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+    .close-advertise:hover { color: #0f172a; background: #f1f5f9; }
+
+    /* ── Follow Gate ── */
+    .follow-gate-modal {
+      visibility: hidden; opacity: 0; pointer-events: none;
+      position: fixed; inset: 0; background: rgba(10,14,26,0.72);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1100; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      padding: 16px; transition: opacity 0.25s var(--ease), visibility 0.25s var(--ease);
+    }
+    .follow-gate-modal.open { visibility: visible; opacity: 1; pointer-events: auto; }
+    .follow-gate-card {
+      background: white; max-width: 460px; width: 100%; border-radius: var(--radius-xl); padding: 36px 28px;
+      text-align: center; transform: scale(0.94) translateY(8px); transition: transform 0.3s var(--ease);
+      box-shadow: 0 32px 64px -20px rgba(15,23,42,0.35);
+    }
+    .follow-gate-modal.open .follow-gate-card { transform: scale(1) translateY(0); }
+    .follow-gate-icon { font-size: 3rem; margin-bottom: 10px; }
+    .follow-gate-card h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; background: linear-gradient(135deg,var(--ig-deep),var(--fb)); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .follow-gate-card p { color: var(--muted); font-size: 0.88rem; margin-bottom: 22px; line-height: 1.6; }
+    .follow-channels-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; }
+    .follow-channel-row { display: flex; align-items: center; justify-content: space-between; background: #f8fafc; border: 1.5px solid #e2edf7; border-radius: var(--radius-md); padding: 13px 16px; gap: 12px; transition: border-color 0.2s, background 0.2s; }
+    .follow-channel-row.followed { border-color: var(--ig); background: #fff0f5; }
+    .follow-channel-info { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+    .follow-channel-info .ch-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .follow-channel-info .ch-name { font-weight: 700; font-size: 0.85rem; color: var(--ink); text-align: left; }
+    .follow-channel-info .ch-sub { font-size: 0.7rem; color: var(--muted); text-align: left; }
+    .btn-follow-ch { background: linear-gradient(95deg,var(--ig),var(--ig-deep)); color: white; border: none; padding: 8px 18px; border-radius: 40px; font-weight: 700; font-size: 0.78rem; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; transition: transform 0.2s, opacity 0.2s; text-decoration: none; }
+    .btn-follow-ch:hover { transform: translateY(-1px); }
+    .btn-follow-ch.done { opacity: 0.85; }
+    .follow-status-text { font-size: 0.72rem; font-weight: 700; color: var(--ig-deep); margin-top: 2px; display: none; }
+    .follow-channel-row.followed .follow-status-text { display: block; }
+    .btn-confirm-follow { width: 100%; padding: 14px; border-radius: 60px; border: none; background: linear-gradient(95deg,var(--ig),var(--fb)); color: white; font-weight: 800; font-size: 0.95rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s; box-shadow: 0 8px 20px -6px rgba(225,48,108,0.4); opacity: 0.45; pointer-events: none; }
+    .btn-confirm-follow.active { opacity: 1; pointer-events: auto; }
+    .btn-confirm-follow.active:hover { transform: translateY(-2px); }
+    .follow-note { font-size: 0.7rem; color: #94a3b8; margin-top: 12px; }
+
+    /* ── Footer ── */
+    footer { background: linear-gradient(145deg,#0a0c15,#1e2f4f); color: #94a3b8; text-align: center; padding: 48px 28px 56px; margin-top: 20px; }
+    footer strong, footer a { color: white; }
+    footer a { text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--ig); }
+
+    /* ── Mobile ── */
+    @media (max-width: 700px) {
+      .hero { padding: 40px 20px; margin: 20px 0 16px; }
+      .hero h1 { font-size: 1.55rem; }
+      .modal-card { padding: 28px 20px; }
+      .advertise-card { padding: 28px 18px; }
+      .filter-panel { padding: 18px 16px; }
+      .profiles-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="container navbar">
+    <div class="logo">
+      <h2>ProfileVerse</h2>
+      <span class="logo-tagline">Social Media Profile Directory</span>
+    </div>
+    <button id="openModalMainBtn" class="btn-glow"><i class="fas fa-plus"></i> Submit Profile</button>
+  </div>
+</header>
+
+<main class="container">
+  <div class="hero">
+    <div class="hero-content">
+      <span class="hero-eyebrow"><i class="fas fa-fire"></i> Updated daily by the community</span>
+      <h1>ProfileVerse — Discover Top Social Media Creators</h1>
+      <p>Find and follow the best <strong>Instagram</strong>, <strong>Facebook</strong>, <strong>Twitter/X</strong> and <strong>YouTube</strong> profiles — free, no sign-up needed.</p>
+      <div class="platform-icons-hero">
+        <i class="fab fa-instagram" style="color:#E1306C"></i>
+        <i class="fab fa-facebook" style="color:#1877F2"></i>
+        <i class="fab fa-twitter" style="color:#1DA1F2"></i>
+        <i class="fab fa-youtube" style="color:#FF0000"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="trust-stats-bar">
+    <div class="trust-stat"><strong id="trustStatTotal">…</strong><span>Live Profiles</span></div>
+    <div class="trust-stat"><strong id="trustStatNew">…</strong><span>Added This Week</span></div>
+    <div class="trust-stat"><strong id="trustStatClicks">…</strong><span>Total Follows</span></div>
+  </div>
+
+  <div class="filter-panel">
+    <div class="filter-flex">
+      <div class="filter-item"><label>Platform</label>
+        <select id="filterType">
+          <option value="all">🌐 All Platforms</option>
+          <option value="instagram">📸 Instagram</option>
+          <option value="facebook">👍 Facebook</option>
+          <option value="twitter">🐦 Twitter / X</option>
+          <option value="youtube">▶️ YouTube</option>
+        </select>
+      </div>
+      <div class="filter-item"><label>Niche</label>
+        <select id="filterCategory">
+          <option value="all">✨ All Niches</option>
+          <option>Technology &amp; AI</option>
+          <option>Business &amp; Finance</option>
+          <option>Education &amp; Learning</option>
+          <option>Entertainment &amp; Comedy</option>
+          <option>Gaming &amp; Esports</option>
+          <option>Health &amp; Fitness</option>
+          <option>Fashion &amp; Beauty</option>
+          <option>Travel &amp; Lifestyle</option>
+          <option>Food &amp; Cooking</option>
+          <option>Art &amp; Design</option>
+          <option>Music &amp; Audio</option>
+          <option>Sports</option>
+          <option>News &amp; Politics</option>
+          <option>Motivation &amp; Self-Help</option>
+          <option>Cryptocurrency</option>
+          <option>Photography</option>
+          <option>Film &amp; Animation</option>
+        </select>
+      </div>
+      <div class="filter-item"><label>Country</label>
+        <select id="filterCountry">
+          <option value="all">🌍 Worldwide</option>
+          <option>India</option><option>USA</option><option>United Kingdom</option>
+          <option>Canada</option><option>Australia</option><option>Germany</option>
+          <option>France</option><option>UAE</option><option>Singapore</option>
+          <option>Brazil</option><option>Japan</option>
+        </select>
+      </div>
+      <div class="filter-item"><label>Language</label>
+        <select id="filterLanguage">
+          <option value="all">🌐 Any Language</option>
+          <option>English</option><option>Hindi</option><option>Telugu</option>
+          <option>Tamil</option><option>Spanish</option><option>Arabic</option>
+          <option>French</option><option>German</option><option>Bengali</option>
+          <option>Kannada</option><option>Malayalam</option>
+        </select>
+      </div>
+      <div class="filter-item"><label>Keyword</label>
+        <input type="text" id="filterSearch" placeholder="Name or tag...">
+      </div>
+      <div class="action-btns">
+        <button id="applyFilterBtn" class="btn-primary-solid"><i class="fas fa-sliders-h"></i> Apply</button>
+        <button id="resetFilterBtn" class="btn-outline-light"><i class="fas fa-redo-alt"></i> Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-chips">
+    <div><h3><i class="fab fa-instagram" style="color:#E1306C"></i> <i class="fab fa-youtube" style="color:#FF0000"></i> Top Creators</h3></div>
+    <div class="result-count" id="resultCountDisplay">Loading…</div>
+  </div>
+
+  <!-- Sponsored Profiles -->
+  <div class="sponsored-section">
+    <div class="sponsored-header">
+      <span class="sponsored-label"><i class="fas fa-star"></i> Sponsored Profiles</span>
+      <button class="btn-get-sponsored" id="openAdvertiseBtn"><i class="fas fa-rocket"></i> Get Your Profile Featured</button>
+    </div>
+    <div class="sponsored-grid" id="sponsoredGrid"></div>
+  </div>
+
+  <div id="profilesGridContainer" class="profiles-grid"></div>
+
+  <div style="text-align:center;margin:-22px 0 60px;">
+    <button id="loadMoreProfilesBtn" class="btn-outline-light" style="display:none;">
+      <i class="fas fa-chevron-down"></i> Load more profiles
+    </button>
+  </div>
+
+  <!-- SEO crawler fallback -->
+  <section aria-hidden="false" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">
+    <h2>Top Social Media Profiles — Instagram, Facebook, Twitter, YouTube</h2>
+    <p>Browse the best content creators and social media profiles on ProfileVerse. Free directory updated daily.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p><strong>🌟 ProfileVerse</strong> — The #1 Free Social Media Profile Directory</p>
+    <p style="margin-top:8px;font-size:0.78rem;">
+      Browse <strong>Instagram Profiles</strong> · <strong>Facebook Pages</strong> · <strong>Twitter Accounts</strong> · <strong>YouTube Channels</strong>
+    </p>
+    <p style="margin-top:12px;font-size:0.78rem;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 18px;">
+      <a href="https://profileverse.co.in/" style="color:#E1306C;font-weight:600;">🚀 ProfileVerse</a>
+    </p>
+    <p style="margin-top:10px;font-size:0.78rem;">
+      <a href="mailto:abuse@profileverse.co.in?subject=Report%20Abuse" style="color:#8294ab;text-decoration:none;font-weight:600;">
+        <i class="fas fa-shield-heart"></i> Report abuse
+      </a>
+    </p>
+    <p style="margin-top:8px;font-size:0.75rem;">© 2026 ProfileVerse · Free Creator Directory · All Rights Reserved</p>
+  </div>
+</footer>
+
+<!-- ════ SUBMIT PROFILE MODAL ════ -->
+<div id="profileModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-card">
+    <button class="close-modal-icon" id="closeModalCross" aria-label="Close"><i class="fas fa-times"></i></button>
+
+    <div id="submitFormView">
+      <h3 id="modalTitle"><i class="fas fa-rocket"></i> Submit Your Profile</h3>
+      <p class="modal-subtitle">Fill in the details and your profile will be reviewed and added to the directory shortly.</p>
+
+      <label>Platform *</label>
+      <select id="modalPlatformSelect">
+        <option value="instagram">📸 Instagram</option>
+        <option value="facebook">👍 Facebook</option>
+        <option value="twitter">🐦 Twitter / X</option>
+        <option value="youtube">▶️ YouTube</option>
+      </select>
+
+      <label>Profile / Page / Channel Name *</label>
+      <input type="text" id="modalName" placeholder="e.g., TechWithAditya" maxlength="120">
+
+      <label>Profile URL *</label>
+      <input type="url" id="modalLink" placeholder="https://instagram.com/yourhandle or https://youtube.com/@channel">
+
+      <label>Profile Picture URL <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted)">(optional)</span></label>
+      <input type="url" id="modalLogoUrl" placeholder="https://example.com/your-photo.jpg" maxlength="500">
+
+      <label>Niche / Category *</label>
+      <select id="modalCategory">
+        <option>Technology &amp; AI</option>
+        <option>Business &amp; Finance</option>
+        <option>Education &amp; Learning</option>
+        <option>Entertainment &amp; Comedy</option>
+        <option>Gaming &amp; Esports</option>
+        <option>Health &amp; Fitness</option>
+        <option>Fashion &amp; Beauty</option>
+        <option>Travel &amp; Lifestyle</option>
+        <option>Food &amp; Cooking</option>
+        <option>Art &amp; Design</option>
+        <option>Music &amp; Audio</option>
+        <option>Sports</option>
+        <option>News &amp; Politics</option>
+        <option>Motivation &amp; Self-Help</option>
+        <option>Cryptocurrency</option>
+        <option>Photography</option>
+        <option>Film &amp; Animation</option>
+      </select>
+
+      <label>Country *</label>
+      <select id="modalCountrySelect">
+        <option value="Worldwide">Worldwide</option>
+        <option>India</option><option>USA</option><option>United Kingdom</option>
+        <option>Canada</option><option>Australia</option><option>Germany</option>
+        <option>France</option><option>UAE</option><option>Singapore</option>
+        <option>Brazil</option><option>Japan</option>
+        <option value="Other">Other</option>
+      </select>
+      <div id="customCountryDiv" style="display:none;margin-top:8px">
+        <input type="text" id="customCountryInput" placeholder="Enter country name" maxlength="60">
+      </div>
+
+      <label>Language *</label>
+      <select id="modalLanguageSelect">
+        <option value="English">English</option><option>Hindi</option><option>Telugu</option>
+        <option>Tamil</option><option>Kannada</option><option>Malayalam</option>
+        <option>Bengali</option><option>Marathi</option><option>Urdu</option>
+        <option>Spanish</option><option>Arabic</option><option>French</option><option>German</option>
+        <option value="Other">Other</option>
+      </select>
+      <div id="customLanguageDiv" style="display:none;margin-top:8px">
+        <input type="text" id="customLanguageInput" placeholder="Enter language" maxlength="40">
+      </div>
+
+      <label>Bio / Short Description</label>
+      <textarea id="modalDesc" rows="2" placeholder="What content do you create? Who is your audience?" maxlength="280"></textarea>
+
+      <label><i class="fas fa-tags"></i> Tags</label>
+      <div class="tags-input-wrapper">
+        <div id="tagChipsContainer" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px"></div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="text" id="tagInputField" class="tags-input" placeholder="e.g., tech, fitness, cooking" autocomplete="off" maxlength="30">
+          <button type="button" id="addTagBtn" style="background:#fff0f5;border:none;border-radius:30px;padding:7px 16px;cursor:pointer;font-weight:700;font-size:0.8rem;white-space:nowrap;flex-shrink:0;color:var(--ig-deep)"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+      <p class="form-hint">Press Enter or tap Add · max 8 tags</p>
+
+      <!-- Honeypot -->
+      <div style="position:absolute;left:-9999px;top:-9999px;opacity:0;pointer-events:none;height:0;overflow:hidden" aria-hidden="true">
+        <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div id="submitFormError" class="form-error"></div>
+
+      <!-- Math CAPTCHA -->
+      <div class="math-captcha-wrap">
+        <div class="math-captcha-label"><i class="fas fa-shield-alt"></i> Verify you're human</div>
+        <div class="math-captcha-row">
+          <div class="math-captcha-question" id="captchaQuestion">Loading…</div>
+          <span style="font-weight:700;color:var(--muted);font-size:1rem;">=</span>
+          <input type="number" id="captchaAnswer" class="math-captcha-input" placeholder="?" autocomplete="off">
+          <button type="button" class="math-captcha-refresh" id="captchaRefreshBtn" title="New question">
+            <i class="fas fa-sync-alt"></i>
+          </button>
+        </div>
+        <div class="math-captcha-error" id="captchaError">❌ Wrong answer — please try again.</div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="submitProfileFinalBtn" class="btn-primary-solid" style="background:linear-gradient(95deg,var(--ig),var(--fb));flex:1;padding:13px 0;font-size:0.9rem;justify-content:center">
+          <i class="fas fa-bolt"></i> Add to Directory
+        </button>
+        <button id="cancelModalAction" class="btn-outline-light">Cancel</button>
+      </div>
+    </div>
+
+    <div id="submitSuccessView" class="submit-success">
+      <div class="check-circle"><i class="fas fa-rocket"></i></div>
+      <h4>🎉 Submitted!</h4>
+      <p>Your profile has been received and will appear in the directory once reviewed by our team.</p>
+      <button id="successCloseBtn" class="btn-primary-solid" style="margin-top:22px;background:#0f172a">Done</button>
+    </div>
+  </div>
+</div>
+
+<div id="globalToast" class="toast-notify" role="status" aria-live="polite"></div>
+
+<!-- ════ FOLLOW GATE MODAL ════ -->
+<div id="followGateModal" class="follow-gate-modal" role="dialog" aria-modal="true">
+  <div class="follow-gate-card">
+    <div class="follow-gate-icon">📢</div>
+    <h3>Follow to Submit</h3>
+    <p>To keep our directory spam-free and support our creators, please follow both profiles below before submitting.</p>
+    <div class="follow-channels-list">
+      <div class="follow-channel-row" id="followRow1">
+        <div class="follow-channel-info">
+          <span class="ch-icon"><i class="fab fa-instagram" style="color:#E1306C;font-size:1.6rem"></i></span>
+          <div>
+            <div class="ch-name">ProfileVerse Official</div>
+            <div class="ch-sub">Daily creator spotlights &amp; updates</div>
+            <div class="follow-status-text">✅ Opened — tap Follow on Instagram</div>
+          </div>
+        </div>
+        <a id="followBtn1" class="btn-follow-ch"
+           href="https://instagram.com/YOUR_INSTAGRAM_HANDLE"
+           target="_blank" rel="noopener"
+           onclick="markChannelOpened(1)">
+          <i class="fab fa-instagram"></i> Follow
+        </a>
+      </div>
+      <div class="follow-channel-row" id="followRow2">
+        <div class="follow-channel-info">
+          <span class="ch-icon"><i class="fab fa-youtube" style="color:#FF0000;font-size:1.6rem"></i></span>
+          <div>
+            <div class="ch-name">ProfileVerse YouTube</div>
+            <div class="ch-sub">Creator tips, trending profiles &amp; more</div>
+            <div class="follow-status-text">✅ Opened — tap Subscribe on YouTube</div>
+          </div>
+        </div>
+        <a id="followBtn2" class="btn-follow-ch" style="background:linear-gradient(95deg,var(--yt),var(--yt-deep))"
+           href="https://youtube.com/@YOUR_YOUTUBE_CHANNEL"
+           target="_blank" rel="noopener"
+           onclick="markChannelOpened(2)">
+          <i class="fab fa-youtube"></i> Subscribe
+        </a>
+      </div>
+    </div>
+    <button id="confirmFollowBtn" class="btn-confirm-follow" onclick="confirmFollow()">
+      <i class="fas fa-check-circle"></i> I've Followed Both — Continue
+    </button>
+    <p class="follow-note"><i class="fas fa-info-circle"></i> After following, come back here and click Continue.</p>
+  </div>
+</div>
+
+<!-- ════ ADVERTISE MODAL ════ -->
+<div id="advertiseModal" class="advertise-modal" role="dialog" aria-modal="true">
+  <div class="advertise-card">
+    <button class="close-advertise" id="closeAdvertiseBtn" aria-label="Close"><i class="fas fa-times"></i></button>
+    <h3>🚀 Sponsor Your Profile</h3>
+    <p class="advertise-subtitle">Get your Instagram, YouTube, Twitter or Facebook profile pinned at the top of ProfileVerse — seen by thousands of visitors daily.</p>
+    <div class="pricing-plans">
+      <div class="pricing-plan">
+        <div class="plan-info"><div class="plan-name">⚡ 1 Month</div><div class="plan-desc">Great for testing reach &amp; new launches</div></div>
+        <div class="plan-price"><div class="price-main">5 USDT</div><div class="price-sub">/ month</div></div>
+      </div>
+      <div class="pricing-plan popular">
+        <div class="popular-tag">🔥 Most Popular — Save 17%</div>
+        <div class="plan-info"><div class="plan-name">💎 6 Months</div><div class="plan-desc">Best value for growing creators</div></div>
+        <div class="plan-price"><div class="price-main">25 USDT</div><div class="price-sub">/ 6 months</div><span class="price-save">Save 5 USDT</span></div>
+      </div>
+      <div class="pricing-plan">
+        <div class="plan-info"><div class="plan-name">👑 1 Year</div><div class="plan-desc">Maximum exposure for established creators</div></div>
+        <div class="plan-price"><div class="price-main">50 USDT</div><div class="price-sub">/ year</div><span class="price-save">Save 10 USDT — 17% off</span></div>
+      </div>
+    </div>
+    <div class="payment-section">
+      <h4><i class="fas fa-wallet"></i> Pay with USDT (BEP20 / BSC Network)</h4>
+      <div class="usdt-address-box">
+        <span class="chain-tag">BEP20 · Binance Smart Chain</span>
+        <div class="usdt-address-row">
+          <span class="usdt-address-text" id="usdtAddress">0xYOUR_WALLET_ADDRESS_HERE</span>
+          <button class="btn-copy-addr" id="copyAddrBtn" onclick="copyUsdtAddress()"><i class="fas fa-copy"></i> Copy</button>
+        </div>
+      </div>
+      <div class="advertise-note">
+        <i class="fas fa-info-circle" style="margin-top:2px;flex-shrink:0"></i>
+        <span>After sending payment, contact us with payment proof &amp; your profile link. Your sponsored slot will be activated within 24 hours.</span>
+      </div>
+      <div style="margin-top:14px;">
+        <p style="font-size:0.8rem;font-weight:700;color:var(--ink-soft);margin-bottom:8px;"><i class="fas fa-envelope" style="color:var(--ig)"></i> Contact us</p>
+        <a href="mailto:sponsor@profileverse.co.in" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(95deg,var(--ig),var(--ig-deep));color:white;text-decoration:none;padding:9px 18px;border-radius:40px;font-weight:700;font-size:0.82rem;">
+          <i class="fas fa-envelope"></i> sponsor@profileverse.co.in
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     ALL JS INLINED — DOMContentLoaded pattern for Netlify safety
+════════════════════════════════════════════════════════ -->
+<script>
+// ── CONFIG — replace with your Supabase project details ──
+var SUPABASE_URL      = "https://YOUR_SUPABASE_URL.supabase.co";
+var SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+
+// ── State ──
+var supabaseClient    = null;
+var profilesLibrary   = [];
+var currentTags       = [];
+var toastTimer        = null;
+var captchaAnswer     = 0;
+var followGateOpened1 = false;
+var followGateOpened2 = false;
+var PROFILES_PAGE_SIZE = 24;
+var profilesOffset     = 0;
+var profilesHasMore    = true;
+var profilesLoadingMore = false;
+
+// Sponsored profiles shown at top (hardcode your featured profiles here)
+var SPONSORED_PROFILES = [
+  {
+    name:        "YourBrand Official",
+    platform:    "instagram",
+    link:        "https://instagram.com/yourbrand",
+    logo_url:    "",
+    description: "Get your Instagram profile featured here. Seen by thousands daily. Contact us to sponsor.",
+    category:    "Technology & AI",
+    tags:        ["sponsored", "featured"]
+  }
+];
+
+// ── Utilities ──
+function escapeHtml(str) {
+  if (!str) return "";
+  return String(str).replace(/[&<>"']/g, function(m) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m];
+  });
+}
+function escapeAttr(str) { return escapeHtml(str); }
+
+function showToast(msg, isErr) {
+  var toast = document.getElementById("globalToast");
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.style.background = isErr ? "#b91c1c" : "#0f172ae6";
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function() { toast.classList.remove("show"); }, 2800);
+}
+
+// ── Platform meta ──
+function getPlatformMeta(platform) {
+  if (platform === "instagram") {
+    return { icon: '<i class="fab fa-instagram fa-2x" style="color:#E1306C"></i>', cls: "instagram", label: '<i class="fab fa-instagram"></i> Follow', badge: "📸 Instagram" };
+  } else if (platform === "facebook") {
+    return { icon: '<i class="fab fa-facebook fa-2x" style="color:#1877F2"></i>', cls: "facebook", label: '<i class="fab fa-facebook"></i> Follow', badge: "👍 Facebook" };
+  } else if (platform === "twitter") {
+    return { icon: '<i class="fab fa-twitter fa-2x" style="color:#1DA1F2"></i>', cls: "twitter", label: '<i class="fab fa-twitter"></i> Follow', badge: "🐦 Twitter/X" };
+  } else {
+    return { icon: '<i class="fab fa-youtube fa-2x" style="color:#FF0000"></i>', cls: "youtube", label: '<i class="fab fa-youtube"></i> Subscribe', badge: "▶️ YouTube" };
+  }
+}
+
+// ── Render Sponsored ──
+function renderSponsoredCards() {
+  var grid = document.getElementById("sponsoredGrid");
+  if (!grid) return;
+  if (!SPONSORED_PROFILES.length) { grid.parentElement.style.display = "none"; return; }
+  grid.innerHTML = SPONSORED_PROFILES.map(function(p) {
+    var m = getPlatformMeta(p.platform);
+    var avatarHtml = p.logo_url
+      ? '<div class="platform-badge" style="padding:0;overflow:hidden;"><img src="' + escapeAttr(p.logo_url) + '" alt="" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML=\'' + m.icon.replace(/'/g,"\\'") + '\'"></div>'
+      : '<div class="platform-badge">' + m.icon + '</div>';
+    var tags = (p.tags && p.tags.length)
+      ? '<div class="tags-container">' + p.tags.map(function(t){ return '<span class="tag-pill"><i class="fas fa-hashtag"></i> ' + escapeHtml(t) + '</span>'; }).join("") + '</div>' : "";
+    return (
+      '<div class="profile-card sponsored-card">' +
+        '<div class="card-header"><span class="sp-badge">⭐ Sponsored</span>' + avatarHtml +
+          '<div class="profile-title">' +
+            '<h4>' + escapeHtml(p.name) + '</h4>' +
+            '<div class="profile-meta">' +
+              '<span class="badge-type">' + m.badge + '</span>' +
+              '<span class="badge-category">' + escapeHtml(p.category || "General") + '</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="card-body">' +
+          '<div class="description">' + escapeHtml(p.description || "") + '</div>' +
+          tags +
+          '<div class="card-actions" style="margin-top:12px;">' +
+            '<a href="' + escapeAttr(p.link) + '" target="_blank" rel="noopener noreferrer" class="follow-link-btn ' + m.cls + '">' + m.label + '</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }).join("");
+}
+
+// ── Render Profiles ──
+function renderProfiles(list) {
+  var container = document.getElementById("profilesGridContainer");
+  if (!container) return;
+  if (!list.length) {
+    container.innerHTML = '<div class="empty-state"><i class="fas fa-users-slash fa-3x"></i><p>No profiles match your filters.</p><button id="emptyAddBtn" class="btn-glow" style="margin-top:15px"><i class="fas fa-plus"></i> Suggest a profile</button></div>';
+    var eb = document.getElementById("emptyAddBtn");
+    if (eb) eb.addEventListener("click", openModal);
+    var cd = document.getElementById("resultCountDisplay");
+    if (cd) cd.innerText = "0 profiles";
+    return;
+  }
+  container.innerHTML = list.map(function(p, i) {
+    var m = getPlatformMeta(p.platform);
+    var tags = (p.tags && p.tags.length)
+      ? '<div class="tags-container">' + p.tags.map(function(t){ return '<span class="tag-pill"><i class="fas fa-hashtag"></i> ' + escapeHtml(t) + '</span>'; }).join("") + '</div>' : "";
+    var delay = Math.min(i, 11) * 0.045;
+    var avatarHtml = p.logo_url
+      ? '<div class="platform-badge" style="padding:0;overflow:hidden;"><img src="' + escapeAttr(p.logo_url) + '" alt="' + escapeHtml(p.name) + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML=\'' + m.icon.replace(/'/g,"\\'") + '\'"></div>'
+      : '<div class="platform-badge">' + m.icon + '</div>';
+    var isNew = p.created_at ? (Date.now() - new Date(p.created_at).getTime()) < (3 * 24 * 60 * 60 * 1000) : false;
+    var clickCount = p.click_count || 0;
+    var isPopular  = clickCount >= 20;
+    var statusBadges =
+      (isNew     ? '<span class="badge-new">🆕 New</span>' : '') +
+      (isPopular ? '<span class="badge-popular">🔥 Popular</span>' : '');
+    return (
+      '<div class="profile-card" style="animation-delay:' + delay + 's">' +
+        '<div class="card-header">' + avatarHtml +
+          '<div class="profile-title">' +
+            '<h4>' + escapeHtml(p.name) + '</h4>' +
+            '<div class="profile-meta">' +
+              '<span><i class="fas fa-globe"></i> ' + escapeHtml(p.country || "Worldwide") + '</span>' +
+              '<span><i class="fas fa-language"></i> ' + escapeHtml(p.language || "English") + '</span>' +
+              '<span class="badge-category">' + escapeHtml(p.category || "General") + '</span>' +
+              '<span class="badge-type">' + m.badge + '</span>' + statusBadges +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="card-body">' +
+          '<div class="description">' + escapeHtml((p.description || "Follow this creator!").substring(0, 140)) + '</div>' +
+          tags +
+          '<span class="follow-counter"><i class="fas fa-heart"></i> ' + clickCount + ' followed</span>' +
+          '<div class="card-actions">' +
+            '<a href="' + escapeAttr(p.link) + '" target="_blank" rel="noopener noreferrer" class="follow-link-btn ' + m.cls + '" data-id="' + escapeAttr(p.id || "") + '">' + m.label + '</a>' +
+            '<button class="copy-icon-btn" data-link="' + escapeAttr(p.link) + '" title="Copy link"><i class="fas fa-copy"></i></button>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }).join("");
+
+  container.querySelectorAll(".copy-icon-btn").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      navigator.clipboard.writeText(btn.getAttribute("data-link")).then(function() {
+        btn.classList.add("copied"); btn.innerHTML = '<i class="fas fa-check"></i>';
+        showToast("✅ Link copied!");
+        setTimeout(function() { btn.classList.remove("copied"); btn.innerHTML = '<i class="fas fa-copy"></i>'; }, 1600);
+      }).catch(function() { showToast("❌ Could not copy", true); });
+    });
+  });
+  container.querySelectorAll(".follow-link-btn").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      var gid = btn.getAttribute("data-id");
+      if (!gid || !supabaseClient) return;
+      supabaseClient.rpc("increment_click_count", { row_id: gid }).catch(function(){});
+    });
+  });
+  var cd = document.getElementById("resultCountDisplay");
+  if (cd) cd.innerText = list.length + (list.length !== 1 ? " profiles" : " profile") + " listed";
+}
+
+// ── Filters ──
+function applyFilters() {
+  var filtered  = profilesLibrary.slice();
+  var typeVal   = (document.getElementById("filterType")     || {}).value || "all";
+  var catVal    = (document.getElementById("filterCategory") || {}).value || "all";
+  var cntryVal  = (document.getElementById("filterCountry")  || {}).value || "all";
+  var langVal   = (document.getElementById("filterLanguage") || {}).value || "all";
+  var searchVal = ((document.getElementById("filterSearch")  || {}).value || "").trim().toLowerCase();
+  if (typeVal   !== "all") filtered = filtered.filter(function(p){ return p.platform === typeVal; });
+  if (catVal    !== "all") filtered = filtered.filter(function(p){ return p.category === catVal; });
+  if (cntryVal  !== "all") filtered = filtered.filter(function(p){ return p.country  === cntryVal; });
+  if (langVal   !== "all") filtered = filtered.filter(function(p){ return p.language === langVal; });
+  if (searchVal) filtered = filtered.filter(function(p) {
+    return (p.name && p.name.toLowerCase().includes(searchVal)) ||
+           (p.tags && p.tags.some(function(t){ return t.toLowerCase().includes(searchVal); }));
+  });
+  renderProfiles(filtered);
+}
+
+function resetFilters() {
+  ["filterType","filterCategory","filterCountry","filterLanguage"].forEach(function(id) {
+    var el = document.getElementById(id); if (el) el.value = "all";
+  });
+  var s = document.getElementById("filterSearch"); if (s) s.value = "";
+  applyFilters();
+}
+
+// ── Load / Pagination ──
+function updateLoadMoreButton() {
+  var btn = document.getElementById("loadMoreProfilesBtn");
+  if (!btn) return;
+  btn.style.display = profilesHasMore ? "inline-flex" : "none";
+  btn.disabled = profilesLoadingMore;
+  btn.innerHTML = profilesLoadingMore
+    ? '<i class="fas fa-spinner fa-spin"></i> Loading…'
+    : '<i class="fas fa-chevron-down"></i> Load more profiles';
+}
+
+async function loadTrustStats() {
+  if (!supabaseClient) return;
+  try {
+    var totalRes  = await supabaseClient.from("profiles").select("*", { count:"exact", head:true }).eq("is_approved",true).eq("is_active",true);
+    var weekAgo   = new Date(Date.now() - 7*24*60*60*1000).toISOString();
+    var newRes    = await supabaseClient.from("profiles").select("*", { count:"exact", head:true }).eq("is_approved",true).eq("is_active",true).gte("created_at",weekAgo);
+    var clicksRes = await supabaseClient.from("profiles").select("click_count").eq("is_approved",true).eq("is_active",true);
+    var totalClicks = 0;
+    if (clicksRes.data) clicksRes.data.forEach(function(r){ totalClicks += (r.click_count||0); });
+    var elTotal = document.getElementById("trustStatTotal");
+    var elNew   = document.getElementById("trustStatNew");
+    var elClick = document.getElementById("trustStatClicks");
+    if (elTotal) elTotal.textContent = (totalRes.count||0) + "+";
+    if (elNew)   elNew.textContent   = "+" + (newRes.count||0);
+    if (elClick) elClick.textContent = totalClicks + "+";
+  } catch(e) { console.warn("loadTrustStats:", e); }
+}
+
+async function loadProfiles() {
+  var container = document.getElementById("profilesGridContainer");
+  if (!supabaseClient) return;
+  if (container) container.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i>Loading profiles…</div>';
+  profilesOffset = 0; profilesHasMore = true;
+  try {
+    var result = await supabaseClient.from("profiles").select("*")
+      .eq("is_approved",true).eq("is_active",true)
+      .order("created_at",{ascending:false})
+      .range(0, PROFILES_PAGE_SIZE - 1);
+    if (result.error) throw result.error;
+    profilesLibrary = result.data || [];
+    profilesHasMore = profilesLibrary.length === PROFILES_PAGE_SIZE;
+    profilesOffset  = profilesLibrary.length;
+    applyFilters(); updateLoadMoreButton();
+  } catch(e) {
+    console.error("loadProfiles:", e);
+    showToast("Error loading profiles", true);
+    if (container) container.innerHTML = '<div class="empty-state"><i class="fas fa-triangle-exclamation fa-2x"></i><p>Could not load profiles. Please refresh.</p></div>';
+  }
+}
+
+async function loadMoreProfiles() {
+  if (!supabaseClient || profilesLoadingMore || !profilesHasMore) return;
+  profilesLoadingMore = true; updateLoadMoreButton();
+  try {
+    var result = await supabaseClient.from("profiles").select("*")
+      .eq("is_approved",true).eq("is_active",true)
+      .order("created_at",{ascending:false})
+      .range(profilesOffset, profilesOffset + PROFILES_PAGE_SIZE - 1);
+    if (result.error) throw result.error;
+    var next = result.data || [];
+    profilesLibrary = profilesLibrary.concat(next);
+    profilesHasMore = next.length === PROFILES_PAGE_SIZE;
+    profilesOffset += next.length;
+    applyFilters();
+  } catch(e) { console.error("loadMoreProfiles:", e); showToast("Error loading more profiles", true); }
+  finally { profilesLoadingMore = false; updateLoadMoreButton(); }
+}
+
+// ── Supabase Init ──
+function initSupabase() {
+  try {
+    if (typeof window.supabase === "undefined" || typeof window.supabase.createClient !== "function") {
+      setTimeout(initSupabase, 300); return;
+    }
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    loadProfiles(); loadTrustStats();
+  } catch(e) {
+    console.error("Supabase init failed:", e);
+    var c = document.getElementById("profilesGridContainer");
+    if (c) c.innerHTML = '<div class="empty-state"><i class="fas fa-plug fa-2x"></i><p>Could not connect to the database. Check your Supabase key.</p></div>';
+  }
+}
+
+// ── CAPTCHA ──
+function generateCaptcha() {
+  var a = Math.floor(Math.random()*12)+1, b = Math.floor(Math.random()*12)+1;
+  var ops = ["+","-","×"];
+  var op = ops[Math.floor(Math.random()*ops.length)];
+  var q = document.getElementById("captchaQuestion");
+  var ia = document.getElementById("captchaAnswer");
+  var err = document.getElementById("captchaError");
+  if (op === "+")  { captchaAnswer = a+b; }
+  else if (op==="-"){ captchaAnswer = a-b; }
+  else              { captchaAnswer = a*b; }
+  if (q)  q.textContent = a + " " + op + " " + b;
+  if (ia) ia.value = "";
+  if (err) err.style.display = "none";
+}
+
+// ── Tags ──
+function renderTagChips() {
+  var c = document.getElementById("tagChipsContainer"); if (!c) return;
+  c.innerHTML = currentTags.map(function(t, i) {
+    return '<span class="tag-chip">' + escapeHtml(t) +
+      '<button type="button" onclick="removeTag(' + i + ')" aria-label="Remove"><i class="fas fa-times"></i></button></span>';
+  }).join("");
+}
+function addTag() {
+  var inp = document.getElementById("tagInputField"); if (!inp) return;
+  var val = inp.value.trim().toLowerCase().replace(/[^a-z0-9\-_]/g,"");
+  if (!val || currentTags.includes(val) || currentTags.length >= 8) { inp.value=""; return; }
+  currentTags.push(val); inp.value = ""; renderTagChips();
+}
+function removeTag(i) { currentTags.splice(i,1); renderTagChips(); }
+
+// ── Submit cooldown ──
+var COOLDOWN_MS = 5 * 60 * 1000;
+function recordSubmitTime() { try { sessionStorage.setItem("pv_last_submit", Date.now()); } catch(e){} }
+function isCoolingDown() {
+  try { var t = parseInt(sessionStorage.getItem("pv_last_submit")||"0",10); return t && (Date.now()-t < COOLDOWN_MS); } catch(e){ return false; }
+}
+
+// ── Follow Gate ──
+var FOLLOW_GATE_KEY = "pv_gate_passed";
+function hasPassedFollowGate() { try { return !!sessionStorage.getItem(FOLLOW_GATE_KEY); } catch(e){ return false; } }
+function setPassedFollowGate() { try { sessionStorage.setItem(FOLLOW_GATE_KEY,"1"); } catch(e){} }
+function markChannelOpened(n) {
+  if (n===1) followGateOpened1 = true; else followGateOpened2 = true;
+  var row = document.getElementById("followRow"+n); if (row) row.classList.add("followed");
+  var btn = document.getElementById("followBtn"+n); if (btn) { btn.innerHTML = '<i class="fas fa-check"></i> Opened'; btn.classList.add("done"); }
+  if (followGateOpened1 && followGateOpened2) { var cb = document.getElementById("confirmFollowBtn"); if (cb) cb.classList.add("active"); }
+}
+function confirmFollow() {
+  setPassedFollowGate();
+  var fg = document.getElementById("followGateModal"); if (fg) fg.classList.remove("open");
+  openModal();
+}
+function closeFollowGate() { var fg = document.getElementById("followGateModal"); if (fg) fg.classList.remove("open"); }
+
+// ── Modal ──
+function openModal() {
+  currentTags = []; renderTagChips(); generateCaptcha();
+  var errEl = document.getElementById("submitFormError");
+  var formV = document.getElementById("submitFormView");
+  var succV = document.getElementById("submitSuccessView");
+  var modal = document.getElementById("profileModal");
+  var nameEl= document.getElementById("modalName");
+  if (errEl) errEl.style.display = "none";
+  if (formV) formV.style.display = "block";
+  if (succV) succV.classList.remove("show");
+  if (modal) modal.classList.add("open");
+  if (nameEl) setTimeout(function(){ nameEl.focus(); }, 50);
+}
+function openModalWithGate() {
+  if (hasPassedFollowGate()) { openModal(); return; }
+  followGateOpened1 = false; followGateOpened2 = false;
+  ["followRow1","followRow2"].forEach(function(id){ var el=document.getElementById(id); if(el) el.classList.remove("followed"); });
+  var b1=document.getElementById("followBtn1"); if(b1){ b1.innerHTML='<i class="fab fa-instagram"></i> Follow'; b1.classList.remove("done"); }
+  var b2=document.getElementById("followBtn2"); if(b2){ b2.innerHTML='<i class="fab fa-youtube"></i> Subscribe'; b2.classList.remove("done"); }
+  var cb=document.getElementById("confirmFollowBtn"); if(cb) cb.classList.remove("active");
+  var fg=document.getElementById("followGateModal"); if(fg) fg.classList.add("open");
+}
+function closeModal() {
+  var modal = document.getElementById("profileModal"); if (modal) modal.classList.remove("open");
+}
+function showSubmitSuccess() {
+  var formV = document.getElementById("submitFormView");
+  var succV = document.getElementById("submitSuccessView");
+  if (formV) formV.style.display = "none";
+  if (succV) succV.classList.add("show");
+}
+function openAdvertiseModal()  { var m=document.getElementById("advertiseModal"); if(m) m.classList.add("open"); }
+function closeAdvertiseModal() { var m=document.getElementById("advertiseModal"); if(m) m.classList.remove("open"); }
+
+// ── USDT copy ──
+function copyUsdtAddress() {
+  var addr = document.getElementById("usdtAddress");
+  var btn  = document.getElementById("copyAddrBtn");
+  if (!addr) return;
+  navigator.clipboard.writeText(addr.textContent.trim()).then(function() {
+    if (btn) { btn.innerHTML='<i class="fas fa-check"></i> Copied!'; btn.classList.add("copied"); }
+    showToast("✅ USDT address copied!");
+    setTimeout(function(){ if(btn){ btn.innerHTML='<i class="fas fa-copy"></i> Copy'; btn.classList.remove("copied"); } }, 2000);
+  }).catch(function(){ showToast("❌ Could not copy", true); });
+}
+
+// ── Submit Profile ──
+async function submitProfile() {
+  if (isCoolingDown()) { showErr("⏳ Please wait a few minutes before submitting again."); return; }
+  var honeypot = document.getElementById("website_url"); if (honeypot && honeypot.value) return;
+
+  var name     = (document.getElementById("modalName")           || {}).value || "";
+  var link     = (document.getElementById("modalLink")           || {}).value || "";
+  var logo_url = (document.getElementById("modalLogoUrl")        || {}).value || "";
+  var platform = (document.getElementById("modalPlatformSelect") || {}).value || "instagram";
+  var category = (document.getElementById("modalCategory")       || {}).value || "General";
+  var country  = (document.getElementById("modalCountrySelect")  || {}).value || "Worldwide";
+  var language = (document.getElementById("modalLanguageSelect") || {}).value || "English";
+  var desc     = (document.getElementById("modalDesc")           || {}).value || "";
+  var captchaInp = document.getElementById("captchaAnswer");
+  var captchaErr = document.getElementById("captchaError");
+
+  if (country === "Other") { country = (document.getElementById("customCountryInput")||{}).value.trim() || "Other"; }
+  if (language === "Other") { language = (document.getElementById("customLanguageInput")||{}).value.trim() || "Other"; }
+
+  function showErr(msg) {
+    var e = document.getElementById("submitFormError");
+    if (e) { e.textContent = msg; e.style.display = "block"; }
+  }
+
+  if (!name.trim()) { showErr("⚠️ Profile name is required."); return; }
+  if (!link.trim()) { showErr("⚠️ Profile URL is required."); return; }
+
+  // Validate URL matches selected platform
+  var validPrefixes = {
+    instagram: ["instagram.com/","instagr.am/"],
+    facebook:  ["facebook.com/","fb.com/","fb.me/"],
+    twitter:   ["twitter.com/","x.com/"],
+    youtube:   ["youtube.com/","youtu.be/"]
+  };
+  var prefixes = validPrefixes[platform] || [];
+  var linkLow = link.toLowerCase();
+  if (prefixes.length && !prefixes.some(function(p){ return linkLow.includes(p); })) {
+    showErr("⚠️ The URL doesn't look like a valid " + platform + " link."); return;
+  }
+
+  // CAPTCHA check
+  var userAnswer = parseInt((captchaInp||{}).value || "", 10);
+  if (isNaN(userAnswer) || userAnswer !== captchaAnswer) {
+    if (captchaErr) captchaErr.style.display = "block";
+    generateCaptcha(); return;
+  }
+  if (captchaErr) captchaErr.style.display = "none";
+
+  var btn = document.getElementById("submitProfileFinalBtn");
+  var originalLabel = btn ? btn.innerHTML : "";
+  if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding…'; }
+
+  try {
+    var result = await supabaseClient.from("profiles").insert([{
+      name:      name.trim(),
+      link:      link.trim(),
+      logo_url:  logo_url.trim() || null,
+      description: desc.trim(),
+      platform:  platform,
+      category:  category,
+      country:   country,
+      language:  language,
+      tags:      currentTags.slice()
+      // is_approved and is_active default to false in DB — moderated before going live
+    }]);
+    if (result.error) throw result.error;
+    recordSubmitTime();
+    ["modalName","modalLink","modalLogoUrl","modalDesc"].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=""; });
+    currentTags = []; renderTagChips(); generateCaptcha();
+    showSubmitSuccess(); loadProfiles();
+  } catch(e) {
+    console.error("submitProfile:", e);
+    if (e.code === "23505") { showErr("⚠️ This profile link is already in the directory."); }
+    else { showErr("Error adding profile: " + (e.message || "please try again.")); }
+  }
+  if (btn) { btn.disabled = false; btn.innerHTML = originalLabel; }
+}
+
+// ── Wire Events — DOMContentLoaded ──
+document.addEventListener("DOMContentLoaded", function() {
+  function on(id, event, fn) { var el=document.getElementById(id); if(el) el.addEventListener(event,fn); }
+
+  renderSponsoredCards();
+
+  // Filters
+  on("applyFilterBtn",  "click",   applyFilters);
+  on("resetFilterBtn",  "click",   resetFilters);
+  on("loadMoreProfilesBtn", "click", loadMoreProfiles);
+  on("filterSearch", "keypress", function(e){ if(e.key==="Enter") applyFilters(); });
+  var debounce = null;
+  on("filterSearch", "input", function(){ clearTimeout(debounce); debounce = setTimeout(applyFilters, 280); });
+  ["filterType","filterCategory","filterCountry","filterLanguage"].forEach(function(id){ on(id,"change",applyFilters); });
+
+  // Modal
+  on("openModalMainBtn",  "click", openModalWithGate);
+  on("closeModalCross",   "click", closeModal);
+  on("cancelModalAction", "click", closeModal);
+  on("successCloseBtn",   "click", closeModal);
+  var modalEl = document.getElementById("profileModal");
+  if (modalEl) modalEl.addEventListener("click", function(e){ if(e.target===modalEl) closeModal(); });
+  var fgModal = document.getElementById("followGateModal");
+  if (fgModal) fgModal.addEventListener("click", function(e){ if(e.target===fgModal) closeFollowGate(); });
+  var advModal = document.getElementById("advertiseModal");
+  if (advModal) advModal.addEventListener("click", function(e){ if(e.target===advModal) closeAdvertiseModal(); });
+  document.addEventListener("keydown", function(e) {
+    if (e.key !== "Escape") return;
+    var m=document.getElementById("profileModal");  if(m  && m.classList.contains("open"))  closeModal();
+    var fg=document.getElementById("followGateModal"); if(fg && fg.classList.contains("open")) closeFollowGate();
+    var ad=document.getElementById("advertiseModal"); if(ad && ad.classList.contains("open")) closeAdvertiseModal();
+  });
+
+  // Advertise
+  on("openAdvertiseBtn",  "click", openAdvertiseModal);
+  on("closeAdvertiseBtn", "click", closeAdvertiseModal);
+
+  // Tags
+  on("addTagBtn",     "click",   addTag);
+  on("tagInputField", "keypress", function(e){ if(e.key==="Enter"){ e.preventDefault(); addTag(); } });
+
+  // Country/Language "Other" reveal
+  on("modalCountrySelect",  "change", function(){ var d=document.getElementById("customCountryDiv");  if(d) d.style.display=this.value==="Other"?"block":"none"; });
+  on("modalLanguageSelect", "change", function(){ var d=document.getElementById("customLanguageDiv"); if(d) d.style.display=this.value==="Other"?"block":"none"; });
+
+  // CAPTCHA
+  on("captchaRefreshBtn", "click",   generateCaptcha);
+  on("captchaAnswer",     "keypress", function(e){ if(e.key==="Enter"){ e.preventDefault(); submitProfile(); } });
+
+  // Submit
+  on("submitProfileFinalBtn", "click", submitProfile);
+
+  // Header scroll shadow
+  var header = document.getElementById("siteHeader");
+  if (header) window.addEventListener("scroll", function(){ header.classList.toggle("scrolled", window.scrollY > 8); }, { passive: true });
+});
+
+window.addEventListener("load", initSupabase);
+</script>
+</body>
+</html>
