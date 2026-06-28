@@ -1355,7 +1355,6 @@ async function submitProfile() {
     return;
   }
   if (captchaErr) captchaErr.style.display = "none";
-if (captchaErr) captchaErr.style.display = "none";
 
   // ---- 7b. Duplicate check — query profiles table for the same link first ----
   if (!supabaseClient) { showErr("Not connected to database. Please refresh and try again."); return; }
@@ -1374,7 +1373,6 @@ if (captchaErr) captchaErr.style.display = "none";
   // ---- 8. Disable button, show spinner ----
   var btn = document.getElementById("submitProfileFinalBtn");
   // ---- 8. Disable button, show spinner ----
-  var btn = document.getElementById("submitProfileFinalBtn");
   var originalLabel = btn ? btn.innerHTML : "";
   if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding…'; }
 
