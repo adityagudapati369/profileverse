@@ -812,7 +812,7 @@
       <div class="usdt-address-box">
         <span class="chain-tag">BEP20 · Binance Smart Chain</span>
         <div class="usdt-address-row">
-          <span class="usdt-address-text" id="usdtAddress">0xYOUR_WALLET_ADDRESS_HERE</span>
+          <span class="usdt-address-text" id="usdtAddress">0xB475E090EbB96853Acfa7118AF39a0b9A6500447</span>
           <button class="btn-copy-addr" id="copyAddrBtn" onclick="copyUsdtAddress()"><i class="fas fa-copy"></i> Copy</button>
         </div>
       </div>
@@ -857,12 +857,12 @@ var profilesLoadingMore = false;
 // Sponsored profiles shown at top (hardcode your featured profiles here)
 var SPONSORED_PROFILES = [
   {
-    name:        "YourBrand Official",
+    name:        "Emergency Tickets PRO",
     platform:    "instagram",
-    link:        "https://instagram.com/yourbrand",
+    link:        "https://www.instagram.com/emergency_tickets_pro?igsh=MThwbHhpYXd1Y2M3cQ==",
     logo_url:    "",
     description: "Get your Instagram profile featured here. Seen by thousands daily. Contact us to sponsor.",
-    category:    "Technology & AI",
+    category:    "Travel & Lifestyle",
     tags:        ["sponsored", "featured"]
   }
 ];
@@ -1101,7 +1101,27 @@ async function loadMoreProfiles() {
   } catch(e) { console.error("loadMoreProfiles:", e); showToast("Error loading more profiles", true); }
   finally { profilesLoadingMore = false; updateLoadMoreButton(); }
 }
-
+// ============================================================
+// SECURITY NOTES (must be applied in your Supabase dashboard):
+// The anon key above is meant to be public, but RLS is what
+// actually stops a GitHub viewer from editing your data.
+//
+// 1. SQL Editor → run:
+//    CREATE POLICY "anon_insert" ON profiles FOR INSERT TO anon WITH CHECK (true);
+//    CREATE POLICY "anon_select_approved" ON profiles FOR SELECT TO anon
+//      USING (is_approved = true AND is_active = true);
+//    -- Do NOT create UPDATE or DELETE policies for anon — omitting them
+//    -- blocks edits/deletes once RLS is on.
+//    ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
+//
+// 2. Table Editor → profiles: set is_approved DEFAULT false, is_active DEFAULT false.
+//
+// 3. Needed for duplicate-link blocking to actually work:
+//    ALTER TABLE profiles ADD CONSTRAINT profiles_link_unique UNIQUE (link);
+//
+// 4. The cooldown below is a soft client-side guard only — for real
+//    per-IP limiting, add a Supabase Edge Function.
+// ============================================================
 // ── Supabase Init ──
 function initSupabase() {
   try {
@@ -1151,10 +1171,10 @@ function removeTag(i) { currentTags.splice(i,1); renderTagChips(); }
 
 // ── Submit cooldown — 1 hour per session ──
 var COOLDOWN_MS = 60 * 60 * 1000; // 1 hour
-function recordSubmitTime() { try { sessionStorage.setItem("pv_last_submit", Date.now()); } catch(e){} }
+function recordSubmitTime() { try { localStorage.setItem("pv_last_submit", Date.now()); } catch(e){} }
 function isCoolingDown() {
   try {
-    var t = parseInt(sessionStorage.getItem("pv_last_submit")||"0",10);
+    var t = parseInt(localStorage.getItem("pv_last_submit")||"0",10);
     if (!t) return false;
     var remaining = Math.ceil((COOLDOWN_MS - (Date.now()-t)) / 60000);
     if (Date.now()-t < COOLDOWN_MS) {
@@ -1335,7 +1355,24 @@ async function submitProfile() {
     return;
   }
   if (captchaErr) captchaErr.style.display = "none";
+if (captchaErr) captchaErr.style.display = "none";
 
+  // ---- 7b. Duplicate check — query profiles table for the same link first ----
+  if (!supabaseClient) { showErr("Not connected to database. Please refresh and try again."); return; }
+  try {
+    var dupCheck = await supabaseClient
+      .from("profiles")
+      .select("id", { count: "exact", head: true })
+      .eq("link", link.trim());
+    if (dupCheck.error) throw dupCheck.error;
+    if (dupCheck.count !== null && dupCheck.count > 0) {
+      showErr("⚠️ This profile link is already in our directory.");
+      return;
+    }
+  } catch (e) { console.error("duplicate check failed:", e); }
+
+  // ---- 8. Disable button, show spinner ----
+  var btn = document.getElementById("submitProfileFinalBtn");
   // ---- 8. Disable button, show spinner ----
   var btn = document.getElementById("submitProfileFinalBtn");
   var originalLabel = btn ? btn.innerHTML : "";
