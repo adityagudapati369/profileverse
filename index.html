@@ -408,7 +408,12 @@
     .trust-stat { flex:1; min-width:140px; background:linear-gradient(145deg,#fff,#fff0f5); border:1px solid var(--line); border-radius:var(--radius-md); padding:14px 18px; text-align:center; }
     .trust-stat strong { display:block; font-size:1.4rem; font-weight:800; background:linear-gradient(120deg,var(--ig),var(--fb)); background-clip:text; -webkit-background-clip:text; color:transparent; }
     .trust-stat span { font-size:0.72rem; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:0.4px; }
-
+    .cross-promo-banner { display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; background:linear-gradient(120deg,#25D366,#2AABEE); border-radius:var(--radius-md); padding:16px 22px; margin:0 0 22px; color:#fff; }
+.cross-promo-banner .cp-text { display:flex; align-items:center; gap:10px; font-weight:700; font-size:0.95rem; }
+.cross-promo-banner .cp-text i { font-size:1.3rem; }
+.cross-promo-banner .cp-btn { background:#fff; color:#128C7E; font-weight:800; font-size:0.82rem; padding:9px 18px; border-radius:30px; text-decoration:none; white-space:nowrap; transition:transform 0.25s var(--ease); }
+.cross-promo-banner .cp-btn:hover { transform:translateY(-2px); }
+@media (max-width:600px){ .cross-promo-banner { padding:14px 16px; } .cross-promo-banner .cp-text { font-size:0.85rem; } }
     /* ── Filters ── */
     .filter-panel {
       background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); border-radius: var(--radius-lg);
@@ -913,7 +918,10 @@
     <div class="trust-stat"><strong id="trustStatNew">…</strong><span>Added This Week</span></div>
     <div class="trust-stat"><strong id="trustStatClicks">…</strong><span>Total Follows</span></div>
   </div>
-
+<div class="cross-promo-banner">
+  <div class="cp-text"><i class="fab fa-whatsapp"></i> Want to join active communities? Check out <strong>Groupverse</strong> — free WhatsApp &amp; Telegram group and channel links.</div>
+  <a href="https://www.groupverse.co.in" class="cp-btn" target="_blank" rel="noopener">Explore Groupverse →</a>
+</div>
   <div class="filter-panel">
     <div class="filter-flex">
       <div class="filter-item"><label>Platform</label>
